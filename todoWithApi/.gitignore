@@ -1,0 +1,56 @@
+# Node.js
+/node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Logs
+logs
+*.log
+logs/*.log
+yarn-debug.log*
+yarn-error.log*
+npm-debug.log*
+
+# Build artifacts
+/dist
+/build
+
+# Editor directories and files
+.vscode/
+.idea/
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dependency directories
+/node_modules/
+/client/node_modules/
+/api/node_modules/
+
+# Misc
+*.swp
+*~
+
+# React build files (if using Create React App or Vite)
+build/
+dist/
+out/
+
+# Cache
+.cache
+.eslintcache
+.parcel-cache
+.next
+/.nuxt
+.sass-cache
+.cache-loader
