@@ -13,7 +13,7 @@ export default function NoteInput() {
         placeholder="Enter your note here..."
         rows="10"
         value={userInput}
-        onChange={(e) => setUserInput(e.target.value.trim())}
+        onChange={(e) => setUserInput(e.target.value)}
         style={{ backgroundColor: color }}
       ></textarea>
       <div className="d-flex flow-row justify-content-between">
