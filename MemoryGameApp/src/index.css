@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .card {
+    @apply w-20 h-20 md:w-32 md:h-32 text-white font-bold bg-red-700 rounded-xl duration-500;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+  }
+
+  .card.open {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+  }
+
+  .front,
+  .back {
+    @apply absolute w-full h-full flex justify-center items-center rounded-xl;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    z-index: 1;
+  }
+
+  .back {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    z-index: 0;
+    @apply bg-slate-300;
+  }
+  .back.completed {
+    @apply bg-red-200;
+  }
+}
