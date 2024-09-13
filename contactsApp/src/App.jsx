@@ -5,6 +5,7 @@ import Form from "./components/Form";
 import List from "./components/List";
 import { useSelector } from "react-redux";
 import { contactsSelectors } from "./redux/contactsSlice";
+
 function App() {
   const totalContacts = useSelector(contactsSelectors.selectTotal);
   return (
