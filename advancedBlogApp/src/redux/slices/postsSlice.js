@@ -7,23 +7,23 @@ const digits = "0123456789";
 const length = 10;
 const nanoid = customAlphabet(digits, length);
 
-function writePostsToLocal(posts) {
-  localStorage.setItem("posts", JSON.stringify(posts));
+function writePostsToSession(posts) {
+  sessionStorage.setItem("posts", JSON.stringify(posts));
 }
 
-function getPostsFromLocal() {
-  if (localStorage.getItem("posts"))
-    return JSON.parse(localStorage.getItem("posts"));
+function getPostsFromSession() {
+  if (sessionStorage.getItem("posts"))
+    return JSON.parse(sessionStorage.getItem("posts"));
 }
 
 export const getAllPosts = createAsyncThunk("getAllPosts", async () => {
-  if (getPostsFromLocal()) return getPostsFromLocal();
+  if (getPostsFromSession()) return getPostsFromSession();
   const response = await axios.get(`${BASE_URL}posts`);
   return response.data.posts;
 });
 
 const initialState = {
-  posts: getPostsFromLocal(),
+  posts: getPostsFromSession(),
   loading: false,
 };
 
@@ -37,7 +37,7 @@ const postsSlice = createSlice({
           if (action.payload.reactionType === "like") post.reactions.likes += 1;
           else post.reactions.dislikes += 1;
       });
-      writePostsToLocal(state.posts);
+      writePostsToSession(state.posts);
     },
     editPost: (state, action) => {
       state.posts?.forEach((post) => {
@@ -47,7 +47,7 @@ const postsSlice = createSlice({
           post.tags = action.payload.tags;
         }
       });
-      writePostsToLocal(state.posts);
+      writePostsToSession(state.posts);
       //You can also do it by map
       /*
 				state.posts = state.posts.map((post) =>
@@ -65,7 +65,7 @@ const postsSlice = createSlice({
         };
         state.posts.push(item);
       }
-      writePostsToLocal(state.posts);
+      writePostsToSession(state.posts);
     },
   },
   extraReducers: (builder) => {
@@ -74,7 +74,7 @@ const postsSlice = createSlice({
     });
     builder.addCase(getAllPosts.fulfilled, (state, action) => {
       state.posts = action.payload;
-      writePostsToLocal(state.posts);
+      writePostsToSession(state.posts);
       state.loading = !state.loading;
     });
     builder.addCase(getAllPosts.rejected, (state) => {
