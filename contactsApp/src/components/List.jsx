@@ -1,43 +1,23 @@
-import { useSelector } from "react-redux";
-import { contactsSelectors } from "../redux/contactsSlice";
-import { useDispatch } from "react-redux";
-import { deleteContact } from "../redux/contactsSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { contactsSelectors, deleteAllContacts } from "../redux/contactsSlice";
+import Contact from "./Contact";
 export default function List() {
-  const contacts = useSelector(contactsSelectors.selectAll);
   const dispatch = useDispatch();
-  function handleDelete(id) {
-    dispatch(deleteContact(id));
-  }
+  const contacts = useSelector(contactsSelectors.selectAll);
   return (
-    <ul className="list-group mt-3">
-      {contacts.map((contact) => (
-        <li
-          key={contact.id}
-          className="list-group-item d-flex justify-content-between align-items-center"
-        >
-          <span>
-            <span className="me-2">
-              <strong>Name: </strong>
-              {contact.name}
-            </span>
-            <span>
-              <strong>Number: </strong>
-              {contact.number}
-            </span>
-          </span>
-          <span>
-            <button className="btn btn-warning me-2">
-              <i className="bi bi-pencil"></i>
-            </button>
-            <button
-              className="btn btn-danger"
-              onClick={() => handleDelete(contact.id)}
-            >
-              <i className="bi bi-x"></i>
-            </button>
-          </span>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className="list-group mt-3">
+        {contacts.map((contact) => (
+          <Contact key={contact.id} contact={contact} />
+        ))}
+      </ul>
+      <button
+        type="button"
+        className="btn btn-danger mt-3"
+        onClick={() => dispatch(deleteAllContacts())}
+      >
+        Delete All
+      </button>
+    </>
   );
 }
