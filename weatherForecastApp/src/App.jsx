@@ -55,6 +55,10 @@ function App() {
     fetchData();
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const filterForecastByFirstObjTime = (forecastData) => {
     if (!forecastData) {
       return [];
@@ -105,7 +109,6 @@ function App() {
                     <>
                       {citySearchData && citySearchData.data ? (
                         <div className="weather-details-container">
-                          {/* details */}
                           <div className="details">
                             <h4 className="city-name">
                               {citySearchData.data.name}
