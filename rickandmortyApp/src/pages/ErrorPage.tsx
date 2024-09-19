@@ -16,10 +16,7 @@ export default function ErorPage() {
               <p className="mb-5">
                 The page you are looking for was not found.
               </p>
-              <Link
-                to="/"
-                className="btn bsb-btn-5xl btn-dark rounded-pill px-5 fs-6 m-0"
-              >
+              <Link to="/" className="btn btn-dark rounded-pill px-5 fs-6 m-0">
                 Go Home
               </Link>
             </div>

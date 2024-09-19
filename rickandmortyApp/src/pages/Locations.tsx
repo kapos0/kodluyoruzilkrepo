@@ -4,7 +4,7 @@ export default function Locations() {
   return (
     <main className="text-bg-dark">
       <Hero title="Locations" />
-      <div className="container my-5 d-flex flex-wrap justify-content-around">
+      <div className="container mt-5 d-flex flex-wrap justify-content-around">
         <LocationCard name="earth" type="planet" dimension="c-137" />
         <LocationCard name="earth" type="planet" dimension="c-137" />
         <LocationCard name="earth" type="planet" dimension="c-137" />

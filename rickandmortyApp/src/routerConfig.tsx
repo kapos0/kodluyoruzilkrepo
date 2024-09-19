@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Locations from "./pages/Locations";
 import Episodes from "./pages/Episodes";
 import ErrorPage from "./pages/ErrorPage";
+import CharacterDetail from "./pages/CharacterDetail";
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "character/:id",
+        element: <CharacterDetail />,
       },
       {
         path: "locations",
