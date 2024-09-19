@@ -5,7 +5,7 @@ type LocationType = {
 };
 function LocationCard(location: LocationType) {
   return (
-    <div className="card mb-3" style={{ width: 400 }}>
+    <div className="card mb-3" style={{ width: 540 }}>
       <div className="card-body p-5 fs-5">
         <h1 className="card-title">{location.name}</h1>
         <p className="card-text">

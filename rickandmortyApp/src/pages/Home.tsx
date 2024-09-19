@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { AppDispatch } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../redux/store";
 import Hero from "../components/Hero";
 import {
   fetchCharacters,
