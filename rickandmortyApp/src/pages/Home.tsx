@@ -1,47 +1,37 @@
+import { useEffect } from "react";
+import { AppDispatch } from "../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import Hero from "../components/Hero";
+import {
+  fetchCharacters,
+  charactersSelectors,
+} from "../redux/slices/charactersSlice";
 import CharacterCard from "../components/CharacterCard";
+
 export default function Home() {
-  //Burada bütün karakterleri sıra ile çekicen ve map ile render edicen
+  const dispatch: AppDispatch = useDispatch();
+  const characters = useSelector(charactersSelectors.selectAll);
+
+  useEffect(() => {
+    dispatch(fetchCharacters());
+  }, [dispatch]);
+
   return (
     <main className="text-bg-dark">
       <Hero title="Characters" />
       <div className="container mt-5 d-flex flex-wrap justify-content-between">
-        <CharacterCard
-          isDetail={false}
-          id="arabalar"
-          image="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-          isAlive={true}
-          lastLocation="Earth"
-          livingType="Human"
-          name="yarak"
-        />
-        <CharacterCard
-          isDetail={false}
-          id="arabalar"
-          image="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-          isAlive={true}
-          lastLocation="Earth"
-          livingType="Human"
-          name="yarak"
-        />
-        <CharacterCard
-          isDetail={false}
-          id="arabalar"
-          image="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-          isAlive={true}
-          lastLocation="Earth"
-          livingType="Human"
-          name="yarak"
-        />
-        <CharacterCard
-          isDetail={false}
-          id="arabalar"
-          image="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-          isAlive={true}
-          lastLocation="Earth"
-          livingType="Human"
-          name="yarak"
-        />
+        {characters.map((char) => (
+          <CharacterCard
+            key={char.id}
+            id={char.id}
+            image={char.image}
+            status={char.status}
+            isDetail={false}
+            lastLocation={char.lastLocation}
+            name={char.name}
+            species={char.species}
+          />
+        ))}
       </div>
     </main>
   );

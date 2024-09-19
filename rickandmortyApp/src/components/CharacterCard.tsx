@@ -4,16 +4,17 @@ type CharacterType = {
   id: string;
   name: string;
   image: string;
-  isAlive: boolean;
-  livingType: string;
+  status: string;
+  species: string;
   lastLocation: string;
   isDetail: boolean;
 };
 
 function CharacterCard(character: CharacterType) {
   const navigate = useNavigate();
+  const charStatus: boolean = character.status == "Alive";
   return (
-    <div className="my-4 d-flex flex-column">
+    <div className="my-4 d-flex flex-column" style={{ maxWidth: 540 }}>
       <div
         className="card"
         style={{ cursor: "pointer" }}
@@ -29,12 +30,10 @@ function CharacterCard(character: CharacterType) {
             <div className="card-body">
               <h5 className="card-title">{character.name}</h5>
               <p className="card-text">
-                <span
-                  className={`text-${character.isAlive ? "success" : "danger"}`}
-                >
-                  ● {character.isAlive}
-                </span>{" "}
-                -<span>{" " + character.livingType}</span>
+                <span className={`text-${charStatus ? "success" : "danger"}`}>
+                  ● {charStatus}
+                </span>
+                -<span>{" " + character.species}</span>
               </p>
               <p className="card-text">
                 <strong>Last known location: </strong>
