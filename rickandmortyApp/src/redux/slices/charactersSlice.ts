@@ -51,8 +51,6 @@ export const fetchCharacters = createAsyncThunk(
 );
 
 const initialState = charactersAdapter.getInitialState({
-  loading: false,
-  error: null as string | null,
   currentPage: 1,
 });
 
@@ -65,18 +63,9 @@ export const charactersSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchCharacters.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchCharacters.fulfilled, (state, action) => {
-        state.loading = false;
-        charactersAdapter.setMany(state, action.payload.characters);
-      })
-      .addCase(fetchCharacters.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || "Failed to fetch characters";
-      });
+    builder.addCase(fetchCharacters.fulfilled, (state, action) => {
+      charactersAdapter.setMany(state, action.payload.characters);
+    });
   },
 });
 

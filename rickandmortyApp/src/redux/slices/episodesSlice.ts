@@ -39,8 +39,6 @@ export const fetchEpisodes = createAsyncThunk(
 );
 
 const initialState = episodesAdaptors.getInitialState({
-  loading: false,
-  error: null as string | null,
   currentPage: 1,
 });
 
@@ -53,18 +51,9 @@ export const episodesSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchEpisodes.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchEpisodes.fulfilled, (state, action) => {
-        state.loading = false;
-        episodesAdaptors.setMany(state, action.payload.episodes);
-      })
-      .addCase(fetchEpisodes.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || "Failed to fetch characters";
-      });
+    builder.addCase(fetchEpisodes.fulfilled, (state, action) => {
+      episodesAdaptors.setMany(state, action.payload.episodes);
+    });
   },
 });
 

@@ -39,8 +39,6 @@ export const fetchLocations = createAsyncThunk(
 );
 
 const initialState = locationsAdaptor.getInitialState({
-  loading: false,
-  error: null as string | null,
   currentPage: 1,
 });
 
@@ -53,18 +51,9 @@ export const locationsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchLocations.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchLocations.fulfilled, (state, action) => {
-        state.loading = false;
-        locationsAdaptor.setMany(state, action.payload.locations);
-      })
-      .addCase(fetchLocations.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || "Failed to fetch characters";
-      });
+    builder.addCase(fetchLocations.fulfilled, (state, action) => {
+      locationsAdaptor.setMany(state, action.payload.locations);
+    });
   },
 });
 

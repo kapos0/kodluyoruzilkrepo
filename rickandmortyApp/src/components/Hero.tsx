@@ -1,4 +1,5 @@
-export default function Hero({ title }: { title: string }) {
+import React from "react";
+function Hero({ title }: { title: string }) {
   return (
     <div className="card text-bg-dark">
       <div className="row g-0">
@@ -16,3 +17,4 @@ export default function Hero({ title }: { title: string }) {
     </div>
   );
 }
+export default React.memo(Hero);
