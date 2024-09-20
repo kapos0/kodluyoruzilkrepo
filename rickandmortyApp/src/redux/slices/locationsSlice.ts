@@ -19,29 +19,39 @@ export const locationsSelectors = locationsAdaptor.getSelectors(
     state.locations
 );
 
-export const fetchLocations = createAsyncThunk("fetchLocations", async () => {
-  const response = await fetch("https://rickandmortyapi.com/api/location");
-  const data = await response.json();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const locations: Location[] = data.results.map((loc: any) => ({
-    //Burası çokemelli
-    id: loc.id,
-    name: loc.name,
-    type: loc.type,
-    dimension: loc.dimension,
-  }));
-  return locations;
-});
+export const fetchLocations = createAsyncThunk(
+  "fetchLocations",
+  async (page: number) => {
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/location?page=${page}`
+    );
+    const data = await response.json();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const locations: Location[] = data.results.map((loc: any) => ({
+      //Burası çokemelli
+      id: loc.id,
+      name: loc.name,
+      type: loc.type,
+      dimension: loc.dimension,
+    }));
+    return { locations, page };
+  }
+);
 
 const initialState = locationsAdaptor.getInitialState({
   loading: false,
   error: null as string | null,
+  currentPage: 1,
 });
 
 export const locationsSlice = createSlice({
   name: "locations",
   initialState,
-  reducers: {},
+  reducers: {
+    incrementPage: (state) => {
+      state.currentPage += 1;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchLocations.pending, (state) => {
@@ -49,7 +59,7 @@ export const locationsSlice = createSlice({
       })
       .addCase(fetchLocations.fulfilled, (state, action) => {
         state.loading = false;
-        locationsAdaptor.setAll(state, action.payload);
+        locationsAdaptor.setMany(state, action.payload.locations);
       })
       .addCase(fetchLocations.rejected, (state, action) => {
         state.loading = false;
@@ -58,5 +68,5 @@ export const locationsSlice = createSlice({
   },
 });
 
-//export const {} = locationsSlice.actions;
+export const { incrementPage } = locationsSlice.actions;
 export default locationsSlice.reducer;
